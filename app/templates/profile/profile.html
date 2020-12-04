@@ -1,0 +1,130 @@
+{% extends 'base.html'%}
+{% block styles%}
+{{ super() }}
+<style>
+    .container {
+        font-family: 'Comfortaa', cursive;
+
+    }
+
+    .card-title {
+        text-align: center;
+    }
+
+    img {
+        object-fit: cover;
+    }
+
+
+
+    #user {
+        max-width: 600px;
+        margin: 5% auto;
+        position: relative;
+        -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    }
+
+    #user:before,
+    #user:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        top: 50%;
+        bottom: 0;
+        left: 10px;
+        right: 10px;
+        -moz-border-radius: 100px / 10px;
+        border-radius: 100px / 10px;
+    }
+
+    #user:after {
+        right: 10px;
+        left: auto;
+        -webkit-transform: skew(8deg) rotate(3deg);
+        -moz-transform: skew(8deg) rotate(3deg);
+        -ms-transform: skew(8deg) rotate(3deg);
+        -o-transform: skew(8deg) rotate(3deg);
+        transform: skew(8deg) rotate(3deg);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="card" id='user'>
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                {% if user.profile_pic_path %}
+                <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+                <small class="text-muted"><a href="{{url_for('main.update_profile_pic',name=user.username)}}"
+                        id='pic'>Edit your
+                        picture</a></small>
+
+                {%else%}
+                <p>No profile picture</p>
+                {% endif %}
+
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"> &nbsp;{{user.username| capitalize}} </h5>
+                    <p class="card-text" style="text-align: center;">
+                        <strong>{{user.pitches.count()}}</strong>&nbsp;Pitches</p>
+
+                    {% if user.bio %}
+                    <p class="card-text">Bio:&nbsp; {{user.bio}}</p>
+                    {%else%}
+                    <p> {{user.username| capitalize}} has no bio </p>
+                    {% endif %}
+                    {% if user == current_user %}
+                    <small class="text-muted"><a href="{{url_for('main.updateprofile',name=user.username)}}"
+                            id='edit'>Edit your
+                            profile</a></small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-6 card">
+
+            <!--Displaying user bio-->
+
+            {% if pitch %}
+            {% for pitch_item in pitch %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <b>{{pitch_item.category}}</b>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <i><strong>{{pitch_item.title}}</strong></i><br>
+                                    <i>{{pitch_item.post}}</i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
