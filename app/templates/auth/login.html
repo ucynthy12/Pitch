@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block styles %}
+{{ super() }}
+<style>
+  input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+    margin: 15px;
+  }
+  #btn {
+    margin: 13px;
+ 
+  }
+
+  .jumbotron {
+    width: 70%;
+    margin: 6% auto;
+    color:white;
+    background-color: white;
+  }
+  .card-title{
+    text-align: center;
+    font-weight: 500;
+  
+  }
+  .card{
+    background-color: rgb(37, 22, 99);
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="jumbotron">
+  <div class="container" style="font-family: 'Comfortaa', cursive; ">
+    <div class="row">
+      <div class="col-md-2"> </div>
+      <div class="col-md-8">
+        <!--Flash message -->
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message }}
+        </div>
+        {% endfor %}
+        <!-- Login form -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Login</h5>
+            <form method='POST' action="{{url_for('auth.login')}}">
+              {{login_form.csrf_token}}
+              {{login_form.email(placeholder=' your email adress' )}}
+              {{login_form.password(placeholder=' your password' )}}
+              <button id='btn' class="btn btn-info " type="submit"><i class="fas fa-sign-in-alt"></i>Sign in</button>
+            </form>
+            <p> Don't have an account?<a href="{{url_for('auth.register')}}"
+              style="border: 1px solid rgb(160, 160, 252); border-radius: 5px; padding: 5px;margin:5px ;color:rgb(32, 203, 233)">Register</a></p>
+          </div>
+        </div>
+
+       
+      </div>
+      <div clas="col-md-2"> </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock%}
