@@ -1,0 +1,47 @@
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-light " style="font-family: 'Lato', sans-serif;box-shadow: 0 10px 6px -6px ">
+  <a class="navbar-brand" href="/" style="padding: 0 20px; font-size: 30px;font-weight: 600;color:#470099">Pitch</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto ">
+
+      <li class="nav-item ">
+        <a class="nav-link" href="/pitch" style="font-weight: 500; text-decoration: underline;">Products </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/pitch" style="font-weight: 500;text-decoration: underline;">Company</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/pitch" style="font-weight: 500;text-decoration: underline;">Jobs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/pitch" style="font-weight: 500;text-decoration: underline;">Entertainment</a>
+      </li>
+    </ul>
+  </div>
+  <ul class="navbar-nav ">
+    {% if current_user.is_authenticated %}
+    <li class="nav-item" style="color:rgb(7, 7, 7);font-weight: 700; ">
+      {{current_user.username}}
+    </li>
+    <li class="nav-item">
+      <a href="{{url_for('main.profile',name = current_user.username)}}">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a href="{{url_for('auth.logout')}}"><i class="fas fa-user-circle"></i>&nbsp;Logout</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a href="{{url_for('auth.login')}}"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
+    </li>
+    {%endif%}
+  </ul>
+
+  </div>
+</nav>
