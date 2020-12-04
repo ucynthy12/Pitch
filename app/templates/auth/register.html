@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block styles %}
+{{ super() }}
+<style>
+    input {
+        width: 100%;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid white;
+        margin: 15px;
+    }
+
+    .card {
+        background-color: rgb(37, 22, 99);
+    }
+
+    .card-title {
+        text-align: center;
+        font-weight: 500;
+
+    }
+
+    .jumbotron {
+        width: 70%;
+
+        margin: 2% auto;
+        color: white;
+        background: white
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container" style="font-family: 'Comfortaa', cursive; ">
+        <div class="row">
+            <div class="col-md-2"> </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Register</h5>
+                        <form method='POST' action="{{url_for('auth.register')}}">
+                            {{registration_form.csrf_token}}
+                            {{registration_form.email(placeholder=' Enter your email adress' )}}
+                            {{registration_form.username(placeholder=' Enter your username' )}}
+                            {{registration_form.password(placeholder=' Enter your password' )}}
+                            {{registration_form.password_confirm(placeholder=' Confirm your password' )}}
+                            <button class="btn btn-info btn-lg btn-block" type="submit"><i
+                                    class="fas fa-sign-in-alt"></i>Sign
+                                up</button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock%}
