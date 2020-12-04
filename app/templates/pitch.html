@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro%}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+{% block styles%}
+{{ super() }}
+<style>
+    #post {
+        margin: 5px auto;
+        border: 1px solid blue;
+    }
+
+    button#add{
+        margin: 3% 40%;
+    }
+</style>
+{% endblock %}
+
+<div class="container">
+    <form action="{{url_for('main.new_pitch')}}" method="post">
+        <button id='add' class="btn btn-info " type="submit"><i class="fas fa-plus"></i>Add a pitch</button>
+    </form>
+
+    {{macro.getPitch(pitches)}}
+
+</div>
+
+{% endblock %}
