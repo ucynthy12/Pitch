@@ -1,0 +1,4 @@
+Hello {{user.username}}
+Welcome to Pitch
+We have just seen you have signed up for our application.
+Please enjoy the reviews ,vote and leave a comment on your favourite pitches.
