@@ -1,0 +1,49 @@
+{% macro getPitch(pitches) %}
+{% if pitches %}
+
+{% for pitch in pitches %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="card" class="col-md-4" id='post'>
+            <div class="card-header" style="background-color: rgb(239, 235, 241);">
+                <h5 class='text-center' style="font-weight: bold;">{{pitch.category}}</h5>
+            </div>
+            <div class="card-body">
+
+                <h6 class="text-center"><strong>{{pitch.title}}</strong></h6>
+                <p>{{pitch.post}}</p>
+                <footer class="blockquote-footer text-center">~ {{pitch.user.username}}</footer>
+                <p class="text-center"><small>Posted on:&nbsp;{{pitch.time}}</small></p>
+                <div class="text-center">
+
+                    <a href="/like/{{pitch.id}} "><button class="btn btn-success"><i class="far fa-thumbs-up"></i>
+                            {{pitch.upvote.count()}}</button></a>
+
+                    <a href="/dislike/{{pitch.id}} "><button class="btn btn-danger"><i class="far fa-thumbs-down"></i>
+                            {{pitch.downvote.count()}}</button></a>
+                    <a href="{{url_for('main.comment',pitch_id=pitch.id)}}"><button
+                            class="btn btn-info ">Comment</button></a>&ensp;
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        {% endfor %}
+
+        {% else %}
+        <div class="card w-90 mb-3">
+            <div class="card-body">
+                <p class="card-title">No posts yet in this category</p>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endmacro %}
