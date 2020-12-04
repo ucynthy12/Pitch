@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block styles %}
+{{ super() }}
+<style>
+    .container {
+        margin: 5% auto;
+        font-family: 'Lato', sans-serif
+    }
+
+    input[type=submit] {
+        background-color: blue;
+        padding: 5px;
+        color: white;
+    }
+
+    h3 {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        {% if comments %}
+        <div class="col-md-7">
+            <h3 class="text-center">Comments</h3>
+            {% for comment in comments %}
+            <div class="card w-90 mb-3">
+                <div class="card-body">
+                    <h5 class="text-center">{{comment.pitch.title}}</h5>
+                    <p class="card-title text-center">{{ comment.comment }}</p>
+                    <p class="card-text blockquote-footer text-center">{{comment.user.username}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-5" style="margin-top: 15px;">
+            {{wtf.quick_form(form)}}
+        </div>
+    </div>
+    {% else %}
+    <div class="card w-90 mb-3">
+        <div class="card-body">
+            <p class="card-title">No Comments for this yet for this post. Be the first to comment</p>
+        </div>
+    </div>
+    <div class="col-md-5">
+        {{wtf.quick_form(form)}}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
